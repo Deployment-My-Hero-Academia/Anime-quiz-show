@@ -5,11 +5,11 @@
     align-items: flex-start;
 }
 
-.auth-wrapper .left {
+/* .auth-wrapper .left {
     background-color: rgb(98, 228, 174);
     width: 65%;
     height: 100vh;
-}
+} */
 
 .auth-wrapper .right { 
     padding: 100px;
