@@ -1,6 +1,7 @@
 import React from "react";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import "./Auth.css";
 
 import axios from "axios"
 
@@ -14,6 +15,7 @@ export default class Auth extends React.Component {
   }
 
   signIn = (email, password) => {
+    console.log(email, password)
 
   }
   signUp = (firstName, lastName, email, password) => {
@@ -29,6 +31,7 @@ export default class Auth extends React.Component {
           <div className="header">Quiz-App</div>
           <div className="sub-header">Welcome to Quiz-App</div>
           {page}
+          <div className="new" onClick={this.changeTab}>{this.state.tab === 'signin' ? 'New to Quiz itt? Sign up here' : 'Already have an account with us? Sign in'}</div>
         </div>
       </div>
     );
