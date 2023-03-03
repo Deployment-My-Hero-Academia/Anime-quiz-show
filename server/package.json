@@ -17,6 +17,7 @@
     "epxress": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.0",
-    "passport": "^0.6.0"
+    "passport": "^0.6.0",
+    "reinstall": "^2.0.0"
   }
 }
