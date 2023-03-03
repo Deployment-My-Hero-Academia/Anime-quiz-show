@@ -2,7 +2,7 @@ const express = require("express");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const checkAuth = require("../middleware/check-auth");
+const auth = require("../middleware/auth");
 const {
   loginValidator,
   registerValidator,
@@ -90,7 +90,7 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.get("/:id", checkAuth, (req, res) => {
+router.get("/:id", auth, (req, res) => {
   Users.findOne({ _id: req.params.id })
     .then((user) => {
       res.json({ user, success: true });
