@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api/users/", userRoutes);
-console.log(process.env.DB_URI);
+
 mongoose
   .connect(process.env.DB_URI, {
     useUnifiedTopology: true,

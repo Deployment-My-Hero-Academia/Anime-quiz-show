@@ -2,7 +2,9 @@ import React from "react";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "./Auth.css";
-import axios from "axios"
+import axios from "axios";
+import storage from '../../storage/index';
+
 
 export default class Auth extends React.Component {
 
@@ -15,7 +17,17 @@ export default class Auth extends React.Component {
 
   signIn = (email, password) => {
     axios.post('/api/users/login', {email, password}).then(res => {
-      console.log(res);
+      if (res.data.success) {
+        storage.dispatch({
+          type: 'login',
+          _id: res.data.user._id,
+          user: res.data.user,
+          token: res.data.token,
+        });
+        // checking if user information is logged out once successful login
+        // console.log(storage.getState());
+        this.props.history.push('/dashboard');
+      }
     }).catch(er => {
       console.log(er);
     });
@@ -23,7 +35,10 @@ export default class Auth extends React.Component {
   }
   signUp = (firstName, lastName, email, password) => {
     axios.post('/api/users/register', {firstName, lastName, email, password}).then(res => {
-      console.log(res.data);
+      if (res.data.success) {
+        this.setState({tab: 'signin'});
+
+      }
     }).catch(er => {
       console.log(er);
     });
