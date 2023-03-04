@@ -90,7 +90,7 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.get("/:id", auth, (req, res) => {
+router.get('/:id', auth,  (req, res) => {
   Users.findOne({ _id: req.params.id })
     .then((user) => {
       res.json({ user, success: true });
