@@ -29,8 +29,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+        repository: Deployment-My-Hero-Academia/Anime-quiz-show
+
+        path: client
 
 
-    - run: /client npm i
+    - run: npm i
     - run: npm run build --if-present
     - run: npm test
