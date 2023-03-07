@@ -11,12 +11,16 @@ const reducer = (state = initState, action) => {
             ...state,
             user: action.user
         } 
+    } else if (action.type === 'set_user') {
+        return {
+            ...state,
+            user: action.user
+        }
     } else {
-        return state;
-    }
-
+    return state;
 }
-const storage = legacy_createStore(reducer);
+}
+const storage = legacy_createStore(reducer); 
 
 
-export  default storage;
+export default storage;

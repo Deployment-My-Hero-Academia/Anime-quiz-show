@@ -1,0 +1,40 @@
+/* .sidebar-wrapper {
+    height: 100vh;
+    background-color: rgb(39, 39, 39);
+    color: lightgray;
+    width: 20vw;
+    min-width: 300px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.sidebar-wrapper .header {
+    font-size: 1.7em;
+    margin-bottom: 30px;
+}
+
+.sidebar-wrapper .user .avatar {
+    width: 9vw;
+    height: 9vw;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.sidebar-wrapper .user .name {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.sidebar-wrapper .links {
+    text-align: left;
+    padding-top: 80px;
+}
+
+.sidebar-wrapper .link {
+    color: lightgray;
+    text-decoration: none;
+    border-bottom: 1px solid lightgrey;
+    padding: 15px 25px;
+} */

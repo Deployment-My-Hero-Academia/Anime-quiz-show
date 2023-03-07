@@ -3,7 +3,7 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import "./Auth.css";
 import axios from "axios";
-import storage from '../../storage/index';
+import storage from '../../storage/index.js';
 
 
 export default class Auth extends React.Component {
