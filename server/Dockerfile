@@ -1,9 +1,9 @@
 FROM node:18
 COPY . /app
 WORKDIR /app
-RUN npm install && npm run start
+RUN npm install
 EXPOSE 4000
-CMD [ "nodemon", "index.js" ]
+CMD [ "node", "index.js" ]
 
 
 
