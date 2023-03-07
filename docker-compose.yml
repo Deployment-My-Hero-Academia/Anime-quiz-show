@@ -1,0 +1,24 @@
+
+version: '3.3'
+services:
+
+  client:
+    # dockerfile can be in different directory
+    build: ./client
+    container_name: quiz-app-ui
+    # runs on a different port from first app
+    ports:
+      - 3000:3000
+   
+
+  # name for the service
+  server:
+    # location of the Dockerfile
+    build: ./server
+    container_name: quiz-app-server
+    # ports
+    ports:
+      - 4000:4000
+
+    links:
+      - client
