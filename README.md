@@ -137,3 +137,4 @@ from root cd client - install dependencies
 References
 https://stackoverflow.com/questions/75205873/nodeinternal-modules-cjs-loader1056-throw-err/75636758#75636758 https://www.youtube.com/watch?v=Q_3lXJ0agwI&t=623s
 https://github.com/actions/checkout
+https://stackoverflow.com/questions/61652674/error-cannot-find-module-react-dev-utils-getpublicurlorpath
