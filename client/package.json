@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "react-dev-utils": "^12.0.1",
     "react-scripts": "^5.0.1"
   }
 }
