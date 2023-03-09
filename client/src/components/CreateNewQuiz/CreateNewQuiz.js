@@ -12,7 +12,7 @@ export default class CreateNewQuiz extends React.Component {
         this.state = {
             categories: ['Anime', 'Manga', 'Gaming', 'Korean Drama', 'Japanese Drama', 'Superhero', 'Misc'],
             categoriesVal: 'Anime',
-            isViewPrivate: false,
+            signedIn: false,
             questions: [],
             name: '',
             addQuestion: false,
