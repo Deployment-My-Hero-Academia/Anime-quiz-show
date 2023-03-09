@@ -4,7 +4,8 @@ import Auth from "./components/Auth/Auth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import storage from "./storage/index";
 import axios from "axios";
-// import Sidebar from "./components/Sidebar/Sidebar";
+import CreateNewQuiz from "./components/CreateNewQuiz/CreateNewQuiz";
+
 
 class App extends React.Component {
   componentDidMount() {
@@ -28,7 +29,8 @@ class App extends React.Component {
            <Switch>
            <Route exact path="/" component={Auth}/>
            <Route path="/dashboard" component={Dashboard}/>
-           {/* <Route path="/sidebar" component={Sidebar}/> */}
+           <Route path="/create-new-quiz" component={CreateNewQuiz}/>
+          
            <Route path="*">
             <Redirect to="/" />
 

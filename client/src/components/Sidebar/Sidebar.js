@@ -20,7 +20,7 @@ export default class Sidebar extends React.Component {
                     <div className="header">My Hero Academia Quiz</div>
     
                     <div className="user">
-                        <div className="avatar" style={{backgroundImage: storage.getState().user.avatar ||  `ur(https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg)`}}></div>
+                        <div className="avatar" style={{backgroundImage: storage.getState().user.avatar ||  `url(https://avatarfiles.alphacoders.com/331/331450.png)`}}></div>
                         <div className="name">{storage.getState().user.firstName + ' ' + storage.getState().user.lastName}</div>
                  
 
@@ -29,7 +29,7 @@ export default class Sidebar extends React.Component {
                         <NavLink to="/dashboard"><div className="link">Dashboard</div></NavLink>
                         <NavLink to="/account"><div className="link">Account</div></NavLink>
                         <NavLink to="/my-quizzes"><div className="link">My Quizzes</div></NavLink>
-                        <NavLink to="/create-quiz"><div className="link">Create Quiz</div></NavLink>
+                        <NavLink to="/create-new-quiz"><div className="link">Create Quiz</div></NavLink>
                         <NavLink to="/my-quizzes"><div className="link">My quizzes</div></NavLink>
                         <NavLink to="/community-quizzes"><div className="link">Community quizzes</div></NavLink>
                     </div>

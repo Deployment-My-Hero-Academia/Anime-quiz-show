@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,200;300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
 
 body {
     margin: 0;
@@ -43,3 +45,8 @@ code {
     font-weight: 500;
 }
 
+.card { 
+    box-shadow: 0 6px 12px -2px rgba(50 50 93 / 25%), 0 3px 7px -3px rgb(0 0 /30%);
+    border-radius: 10px;
+
+}

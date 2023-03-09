@@ -1,9 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 require("dotenv").config();
-const userRoutes = require("./routes/users");
+const userRoutes = require('./routes/users');
+const quizRoutes = require('./routes/quizzes')
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api/users/", userRoutes);
+app.use("/api/quizzes/", quizRoutes);
 
 mongoose
   .connect(process.env.DB_URI, {

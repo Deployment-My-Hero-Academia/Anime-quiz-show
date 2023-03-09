@@ -6,8 +6,10 @@
 }
 
 .auth-wrapper .left {
-    background-color: rgb(98, 228, 174);
-    width: 65%;
+    background-image: url('../../../assets/images/myheroacademia.jpg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50%;
     height: 100vh;
 }
 
@@ -19,8 +21,8 @@
 
 .auth-wrapper .right .header {
     margin: 100px 0;
-    font-size: 3em;
-    letter-spacing: 1px;
+    font-size: 2.5em;
+
 }
 
 .auth-wrapper .right .sub-header {
