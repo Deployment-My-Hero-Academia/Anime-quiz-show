@@ -23,15 +23,14 @@ export default class Alerts extends React.Component {
     render() {
         let popup = undefined;
         if(this.props.model === true) {
-            this.hidePopUp()
+            this.hidePopUp();
 
         } else {
             this.showPopUp();
         }
       
-            popup = <div ref={this.alertRef} style={{overflow: 'scroll', position: 'absolute', top:  '400px', right: '500px', zIndex: this.props.zIndex
-            ? this.props.zIndex: 40, backgroundColor: this.props.backgroundColor  ? this.props.backgroundColor : '#30D158',width: 'fit-content', color: 'white', borderRadius: '5px', padding: '20px 30px'}}>
-                {this.props.message}
+            popup = <div ref={this.alertRef} style={{overflow: 'scroll', position: 'absolute', top: '15px', right: '15px', zIndex: this.props.zIndex ? this.props.zIndex : 20, backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : '#30D158', width: 'fit-content', color: 'white', borderRadius: '5px', padding: '20px 30px'}}>
+            {this.props.message}
             </div>
     
         
