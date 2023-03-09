@@ -5,6 +5,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import storage from "./storage/index";
 import axios from "axios";
 import CreateNewQuiz from "./components/CreateNewQuiz/CreateNewQuiz";
+import MyQuizzes from "./components/MyQuizzes/MyQuizzes";
+import CommunitiesQuizzes from "./components/CommunityQuizzes/CommunityQuizzes";
 
 
 class App extends React.Component {
@@ -30,6 +32,8 @@ class App extends React.Component {
            <Route exact path="/" component={Auth}/>
            <Route path="/dashboard" component={Dashboard}/>
            <Route path="/create-new-quiz" component={CreateNewQuiz}/>
+           <Route path="/my-quizzes" component={MyQuizzes}/>
+           <Route path="/community-quizzes" component={CommunitiesQuizzes}/>
           
            <Route path="*">
             <Redirect to="/" />
