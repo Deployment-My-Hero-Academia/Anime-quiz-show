@@ -4,6 +4,7 @@ import Signup from "./Signup";
 import "./Auth.css";
 import axios from "axios";
 import storage from '../../storage/index.js';
+import Alerts from '../Alerts/Alerts'
 
 
 export default class Auth extends React.Component {
@@ -12,6 +13,7 @@ export default class Auth extends React.Component {
     super(props);
     this.state = {
       tab: "signin",
+      showAlert: false
     };
   }
 
@@ -27,9 +29,23 @@ export default class Auth extends React.Component {
         // checking if user information is logged out once successful login
         // console.log(storage.getState());
         this.props.history.push('/dashboard');
+      } else {
+        this.setState({
+          showAlert: true
+         });
+         setTimeout(() => {
+          this.setState({showAlert: false})
+         
+         }, 3000);
       }
     }).catch(er => {
-      console.log(er);
+     this.setState({
+      showAlert: true
+     });
+     setTimeout(() => {
+      this.setState({showAlert: false})
+     
+     }, 3000);
     });
 
   }
@@ -55,11 +71,15 @@ export default class Auth extends React.Component {
     let page = this.state.tab === 'signin' ? <Signin signIn={this.signIn} /> : <Signup signUp={this.signUp} />
     return (
       <div className="auth-wrapper">
-        <div className="left"></div>
+     <Alerts model={this.state.showAlert} message="Invalid login details" backgroundColor="#FF4539" />
+        <div className="left">
+    
+        </div>
         
         <div className="right">
           <div className="header">My Hero Academia Quiz-App</div>
           <div className="sub-header">Welcome to My Hero Academia Quiz-App</div>
+          
           {page}
           <div className="new" onClick={this.changeForm}>{this.state.tab === 'signin' ? 'New to the Jungle? Sign up' : 'Already booked a room in the Hotel California? Sign in'}</div>
       </div>

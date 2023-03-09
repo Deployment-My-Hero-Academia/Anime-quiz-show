@@ -4,10 +4,18 @@ import Sidebar from "../Sidebar/Sidebar";
 
 
 export default class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
 
+    }
+    componentDidMount() {
+        if (!localStorage.getItem('JWT_PAYLOAD')) {
+            this.props.history.push('/');
+        }
+    }
     render() {
         return (
-        <div className="dashboard-wrapper"><h1>User's Dashboard</h1>
+        <div className="dashboard-wrapper">
             <div className="sidebar">
                     <Sidebar />
                 </div>
