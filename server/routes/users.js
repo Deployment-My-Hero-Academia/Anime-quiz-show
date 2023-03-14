@@ -2,6 +2,7 @@ const express = require("express");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { cloudinary } = require('../config/cloudinary');
 const auth = require("../middleware/auth");
 const {
   loginValidator,
@@ -99,20 +100,25 @@ router.get('/:id', auth,  (req, res) => {
       res.json({ success: false, message: er.message });
     });
 });
-// router.post('/upload-image', auth, (req, res) => {
-//    Users.findOne({ _id: req.body._id,  avatar: {$in: [req.body.userId]}}).then(async user => {
-//     if (!user) {
-//       await Users.updateOne({ _id: req.body.imageId }, {
-//           $push: {
-//               avatar: req.body.imageId
-//           }
-//       });
-//       await Images.updateOne({ _id: req.body.imageId }, {
-//      return ( 
-//     res.status(200).json({message: 'uploaded an image'});
-//     ) })}
-// })
-// });
-       
+router.post('/upload-image', auth, async(req, res) => {
+  try {
+      const fileUpload = req.body.data;
+      const uploadedResponse = await cloudinary.uploader.upload(fileUpload);
+      Users.findOne({ _id: req.body._id }).then(user => {
+          user.avatar = { url: uploadedResponse.url, publicId: uploadedResponse.public_id };
+          user.save();
+          if (user.images) {
+              user.images.push({ url: uploadedResponse.url, publicId: uploadedResponse.public_id });
+          } else {
+              user.images = [];
+              user.images.push({ url: uploadedResponse.url, publicId: uploadedResponse.public_id })
+          }
+          res.json({ success: true });
+      })
+  } catch (err) {
+      console.log(err);
+      res.json({ success: false, message: 'Something went wrong, try again.' })
+  }
+})
 
 module.exports = router;
