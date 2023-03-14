@@ -22,7 +22,7 @@ export default class Dashboard extends React.Component {
                 <div className="main">
                     <div className="top">
                         <div className="left">
-                            <div className="header">Statistics</div>
+                            <div className="header">Hello</div>
                         </div>
                         <div className="right">
                             <div className="header">My Quizzes</div>

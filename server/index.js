@@ -1,33 +1,36 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-require("dotenv").config();
 const userRoutes = require('./routes/users');
-const quizRoutes = require('./routes/quizzes')
+const quizRoutes = require('./routes/quizzes');
+const connectDB = require("./config/db");
+connectDB();
+// const {uploading,upload,getImages,getImage} =require('./routes/uploads');
+require("dotenv").config();
+
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-let server;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '20mb', parameterLimit:50000}));
+app.use(bodyParser.json({limit: '20mb'}));
 
 app.use("/api/users/", userRoutes);
 app.use("/api/quizzes/", quizRoutes);
+// app.use("/api/images",require('./routes/Uploads'));
 
-mongoose
-  .connect(process.env.DB_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
-  .then(() => console.log("Mongoose DB is connected"))
-  .catch((error) =>
-    console.log("Error bankai did not connect to the Mongoose DB: ", error)
-  );
+// //accessing the router defined in routes folder
+// app.use("/api/auth", require("./routes/auth"));
+// app.use("/api/posts", require("./routes/Posts"));
+// app.use("/api/users", require("./routes/Users"));
+// app.use("/api/images",require('./routes/Uploads'));
 
-server = app.listen(PORT, () => {
+
+
+
+app.listen(PORT, () => {
   console.log(`Now serving port: ${PORT}`);
 });

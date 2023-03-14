@@ -12,6 +12,14 @@ export default class Sidebar extends React.Component {
         this.unsubscribe();
 
     }
+    bgImage = () => {
+        if(storage.getState().user.avatar && storage.getState().user.avatar.url) {
+            return `url(${storage.getState().user.avatar.url})`;
+            
+        } else {
+            return `url(https://avatarfiles.alphacoders.com/331/331450.png)`;
+        }
+    }
     render(){
         if (storage.getState().user) {
         return (
@@ -20,17 +28,16 @@ export default class Sidebar extends React.Component {
                     <div className="header">My Hero Academia Quiz</div>
     
                     <div className="user">
-                        <div className="avatar" style={{backgroundImage: storage.getState().user.avatar ||  `url(https://avatarfiles.alphacoders.com/331/331450.png)`}}></div>
-                        <div className="name">{storage.getState().user.firstName + ' ' + storage.getState().user.lastName}</div>
+                    <div className="avatar" style={{backgroundImage: this.bgImage()}}></div>
+                    <div className="name">{storage.getState().user.firstName + ' ' + storage.getState().user.lastName}</div>
                  
 
                  </div>
                  <div className="links">
                         <NavLink to="/dashboard"><div className="link">Dashboard</div></NavLink>
-                        <NavLink to="/account"><div className="link">Account</div></NavLink>
+                        <NavLink to="/user-profile"><div className="link">Profile</div></NavLink>
                         <NavLink to="/my-quizzes"><div className="link">My Quizzes</div></NavLink>
                         <NavLink to="/create-new-quiz"><div className="link">Create Quiz</div></NavLink>
-                        {/* <NavLink to="/my-quizzes"><div className="link">My quizzes</div></NavLink> */}
                         <NavLink to="/community-quizzes"><div className="link">Community Quizzes</div></NavLink>
                     </div>
             </div>

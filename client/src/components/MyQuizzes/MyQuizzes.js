@@ -19,6 +19,11 @@ export default class MyQuizzes extends React.Component{
             })
         })
     }
+    startQuiz = (quizId) => {
+        this.props.history.push('/quiz-history?id=' + quizId);
+    }
+
+
     render() {
         return (
             <div className='my-quizzes-wrapper'>
@@ -34,7 +39,7 @@ export default class MyQuizzes extends React.Component{
                 <div className="quiz-name">{quiz.name}</div>
                 <div className="category">{quiz.category}</div>
                 <div className="questions">{quiz.questions.length} Questions</div>
-                <div className="take-quiz btn">Take Quiz</div>
+                <div className="start-quiz btn" onClick={() => this.startQuiz(quiz._id)}>Start Quiz</div>
 
                 <div className="top-section">
                     <div className="views"> <img src="https://www.pngkit.com/png/full/525-5251817_security-governance-privacy-eye-icon-font-awesome.png" alt="view"/> </div>

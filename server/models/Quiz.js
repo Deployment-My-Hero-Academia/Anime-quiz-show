@@ -27,13 +27,13 @@ const QuizSchema = new Schema({
         type: String,
         required: false
     },
-    // comments: [{
-    //     type: Object,
-    //     contains: {
-    //         sentFromId: {type: Schema.Types.ObjectID},
-    //         message: {type: String}
-    //     }
-    // }],
+    comments: [{
+        type: Object,
+        contains: {
+            sentFromId: {type: Schema.Types.ObjectID},
+            message: {type: String}
+        }
+    }],
     views: {
         type: Number,
         default: 0
