@@ -99,5 +99,20 @@ router.get('/:id', auth,  (req, res) => {
       res.json({ success: false, message: er.message });
     });
 });
+// router.post('/upload-image', auth, (req, res) => {
+//    Users.findOne({ _id: req.body._id,  avatar: {$in: [req.body.userId]}}).then(async user => {
+//     if (!user) {
+//       await Users.updateOne({ _id: req.body.imageId }, {
+//           $push: {
+//               avatar: req.body.imageId
+//           }
+//       });
+//       await Images.updateOne({ _id: req.body.imageId }, {
+//      return ( 
+//     res.status(200).json({message: 'uploaded an image'});
+//     ) })}
+// })
+// });
+       
 
 module.exports = router;

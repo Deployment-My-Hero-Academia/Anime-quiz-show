@@ -65,7 +65,7 @@
     margin: 5px 0;
 }
 
-.my-quizzes-wrapper .quizzes-wrapper .quiz-card .take-quiz {
+.my-quizzes-wrapper .quizzes-wrapper .quiz-card .-quiz {
     width: 50%;
     margin-top: 20px;
     margin: 20px auto 0;
