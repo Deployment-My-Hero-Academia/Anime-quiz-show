@@ -4,6 +4,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import Alerts from '../Alerts/Alerts';
 import './UserProfile.css';
 
+
+
 export default class UserProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -15,8 +17,7 @@ export default class UserProfile extends React.Component {
             fileTypes: ['jpg', 'pdf', 'png', 'jpeg', 'image/jpg', 'image/pdf', 'image/png', 'image/jpeg']
         }
     }
-    
-    // 'url(https://www.denofgeek.com/wp-content/uploads/2022/04/Sailor-Moon-Cosmos.jpg?resize=768%2C432)'
+
     componentDidMount() {
         this.getUser();
     }
@@ -32,9 +33,7 @@ export default class UserProfile extends React.Component {
         })
     }
 
-
-
-    onFileInputChange = event => {
+    handleFileInputChange = event => {
         const file = event.target.files[0];
         if(!this.state.fileTypes.includes(file.type)) {
             this.setState({
@@ -63,7 +62,7 @@ export default class UserProfile extends React.Component {
     handleSubmitFile = (event) => {
         event.preventDefault();
             if(this.state.message.length > 0 || !this.state.previewSource || Object.keys(this.state.user) < 1) return;
-            axios.post('/api/users/images', JSON.stringify({
+            axios.post('/api/users/upload-image', JSON.stringify({
                 data: this.state.previewSource, 
                 _id: this.state.user._id
             })).then((res) => {
@@ -104,15 +103,15 @@ export default class UserProfile extends React.Component {
                                 <div className="img-uploader">
                                     <div>Upload Avatar Image</div>
                                     <div className="upload-box">
-                                        <input onChange={(event) => this.onFileInputChange(event)} type="file" />
+                                        <input onChange={(event) => this.handleFileInputChange(event)} type="file" />
                                         {this.state.previewSource ?
-                                            <img className="display-image" src={this.state.previewSource} alt="Profile phot"/>
-                                            : (this.state.user.avatar && this.state.user.avatar.url ? <img style={{borderRadius: '50%', objectFit: 'cover', margin: '20px auto 0 25px', width: '25vw', height: '25vw'}} className="display-image" src={this.state.user.avatar.url} alt="Mic drop" />  : <img className="display-image" src={this.state.previewSource} alt="profile ie"/> )}
+                                            <img className="display-image" src={this.state.previewSource || 'https://lh3.googleusercontent.com/Z3xn71oFh5OJ0BsYvTrN5pywsi6iDZDYj24ZihU8DHgD5vQHAbG2ZLwkl9yGpbphGqWUiKIEgqNjNiev3KKTRheEhammpPEUV80qevNHrSvKaBlE0SqCSYvWLq4P9AC_zpsWBq6I'} alt="profile photo" />
+                                            : (this.state.user.avatar && this.state.user.avatar.url ? <img style={{borderRadius: '50%', objectFit: 'cover', margin: '20px auto 0 25px', width: '25vw', height: '25vw'}} className="display-image" src={this.state.user.avatar.url} alt="taco"/>  : <img className="display-image" src={this.state.previewSource} alt="bell" /> )}
                                     </div>
                                     <div style={{color: this.state.message === 'Success' ? 'green' : 'red', fontSize: '.8em', margin: '20px 0'}}>{ this.state.message }</div>
                                     <button className="image-btn" style={{marginTop: '20px'}} onClick={(event) => this.handleSubmitFile(event)}>Save</button>
                                 </div>
-                            </div>
+                                </div>
                         </div>
                     }
                 </div>
