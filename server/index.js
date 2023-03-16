@@ -20,13 +20,6 @@ app.use(bodyParser.json({limit: '20mb'}));
 
 app.use("/api/users/", userRoutes);
 app.use("/api/quizzes/", quizRoutes);
-// app.use("/api/images",require('./routes/Uploads'));
-
-// //accessing the router defined in routes folder
-// app.use("/api/auth", require("./routes/auth"));
-// app.use("/api/posts", require("./routes/Posts"));
-// app.use("/api/users", require("./routes/Users"));
-// app.use("/api/images",require('./routes/Uploads'));
 
 
 

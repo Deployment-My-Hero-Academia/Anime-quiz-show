@@ -11,7 +11,7 @@ import QuizHistory from "./components/QuizHistory/QuizHistory";
 import StartQuiz from "./components/StartQuiz/StartQuiz";
 import Results from "./components/Results/Results";
 import Admin from "./components/Admin/Admin";
-// import UpdateQuiz from "./components/UpdateQuiz/UpdateQuiz"
+import UpdateQuiz from "./components/UpdateQuiz/UpdateQuiz"
 
 
 class App extends React.Component {
@@ -52,7 +52,7 @@ class App extends React.Component {
            <Route path="/quiz-history" component={QuizHistory}/>
            <Route path="/start-quiz" component={StartQuiz}/>
            <Route path="/results" component={Results}/>
-           {/* <Route path="/update" component={UpdateQuiz}/> */}
+           <Route path="/update" component={UpdateQuiz}/>
   
           
           
