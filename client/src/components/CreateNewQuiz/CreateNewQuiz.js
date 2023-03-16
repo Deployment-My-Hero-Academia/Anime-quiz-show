@@ -105,7 +105,7 @@ saveQuiz = () => {
     }).catch(er => {
         console.error(er);
     })
-    window.location.reload();
+    this.props.history.push('/user-profile');
 }
  
 
