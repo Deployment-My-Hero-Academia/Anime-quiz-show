@@ -41,7 +41,7 @@ export default class Admin extends React.Component {
         quizzes: res.data,
         data: { id }
     })
-window.location.reload();
+    this.props.history.push('/admin');
 })
      }
          
@@ -103,8 +103,8 @@ window.location.reload();
                 <div className="category">{quiz.category}</div>
                 <img src={quiz.imgUrl || 'https://www.denofgeek.com/wp-content/uploads/2022/04/Sailor-Moon-Cosmos.jpg?resize=768%2C432'} alt="default" />
                 <div className="delete-quiz btn" onClick={(event) => this.handleDelete(quiz._id, event)} style={{backgroundColor: "red"}}>Delete Quiz</div>
-                <div className="update-quiz btn" onClick={() => this.updateQuiz(quiz._id)}style={{backgroundColor: "blue"}}>Update Quiz</div>
-               
+                <div className="update-quiz btn" onClick={() => this.props.history.push('/update')}style={{backgroundColor: "blue"}}>Update Quiz</div>
+
                 <div className="top-section">
 
                 </div>

@@ -84,7 +84,8 @@ saveQuiz = () => {
         category: this.state.categoriesVal,
         imgUrl: this.state.imgUrl,
       
-    }   
+    } 
+    
 
    
    
@@ -95,6 +96,8 @@ saveQuiz = () => {
                 answers: [],
                 categoriesVal: 'Anime',
                 showAlert: true
+
+                
             });
             setTimeout(() => {
                 this.setState({showAlert: false});
@@ -107,7 +110,6 @@ saveQuiz = () => {
     })
     this.props.history.push('/user-profile');
 }
- 
 
 
     render () {
@@ -149,6 +151,7 @@ saveQuiz = () => {
                     </div>
                      
                     <span onClick={() => this.saveQuiz()} className="btn save-quiz">Save Quiz</span>
+                    
                     <Prompts model={this.state.addQuestion}>
                         <div className="new-question-form">
                                 <input className="input" placeholder="Question" value={this.state.questionInput} onChange={event => this.setState({questionInput: event.target.value})} />
@@ -165,6 +168,13 @@ saveQuiz = () => {
                                 </div>
                         </div>
                     </Prompts>
+
+
+
+                    
+                  
+                    
+                  
                 </div>
             </div>
         </div>
