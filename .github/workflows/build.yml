@@ -1,16 +1,37 @@
-name: Test and Deploy
+name: Test and Deploy App
 on:
-  push: 
-    branches: [ main ]
+  push:
+    branches: [main]
 
 jobs:
-  test: 
+  test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-    - run: npm ci
-    - run: npm test 
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm ci
+      - run: npm test
+  build:
+    name: Build and Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install Railway
+        run: npm i -g @railway/cli
+      - name: Deploy Node
+        run: |
+          echo "APP_SECRET: ${{process.env.APP_SECRET}}"
+          railway up
+        env:
+          App_TOKEN: ${{process.env.APP_SECRET}}
