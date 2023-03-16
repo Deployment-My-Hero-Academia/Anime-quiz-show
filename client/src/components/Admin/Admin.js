@@ -69,7 +69,7 @@ window.location.reload();
         }).catch(er => {
             console.error(er);
         })
-        window.location.reload();
+        this.props.history.push('/admin');
     }
         getUser = () => {
         let id = localStorage.getItem('_ID');
