@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
-import Dashboard from "./components/Dashboard/Dashboard";
 import storage from "./storage/index";
 import axios from "axios";
 import UserProfile from "./components/UserProfile/UserProfile";
@@ -11,6 +10,8 @@ import CommunitiesQuizzes from "./components/CommunityQuizzes/CommunityQuizzes";
 import QuizHistory from "./components/QuizHistory/QuizHistory";
 import StartQuiz from "./components/StartQuiz/StartQuiz";
 import Results from "./components/Results/Results";
+import Admin from "./components/Admin/Admin";
+// import UpdateQuiz from "./components/UpdateQuiz/UpdateQuiz"
 
 
 class App extends React.Component {
@@ -20,12 +21,21 @@ class App extends React.Component {
         storage.dispatch({
           user: res.data.user,
           type: 'set_user'
-        })
+        
+      })})
+      } else if (localStorage.getItem('Q_ID')) {
+          axios.get(`/api/quizzes/${localStorage.getItem('Q_ID')}`).then(res => {
+            storage.dispatch({
+              quiz: res.data.quiz,
+              type: 'set_quiz'
+
+            })
       }).catch(er => {
         console.log(er);
       })
     }
   }
+  
 
   render() {
     return (
@@ -34,7 +44,7 @@ class App extends React.Component {
            <BrowserRouter>
            <Switch>
            <Route exact path="/" component={Auth}/>
-           <Route path="/dashboard" component={Dashboard}/>
+           <Route path="/admin" component={Admin}/>
            <Route path="/user-profile" component={UserProfile}/>
            <Route path="/create-new-quiz" component={CreateNewQuiz}/>
            <Route path="/my-quizzes" component={MyQuizzes}/>
@@ -42,6 +52,8 @@ class App extends React.Component {
            <Route path="/quiz-history" component={QuizHistory}/>
            <Route path="/start-quiz" component={StartQuiz}/>
            <Route path="/results" component={Results}/>
+           {/* <Route path="/update" component={UpdateQuiz}/> */}
+  
           
           
            <Route path="*">

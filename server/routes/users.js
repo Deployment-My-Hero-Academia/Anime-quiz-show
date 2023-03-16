@@ -26,7 +26,7 @@ router.post("/login", (req, res) => {
             res.json({ message: "Invalid password", success: false });
           } else {
             const payload = {
-              id: user._id,
+              id: user._id, isAdmin: user.isAdmin,
 
               name: user.firstName,
             };
@@ -100,6 +100,91 @@ router.get('/:id', auth,  (req, res) => {
       res.json({ success: false, message: er.message });
     });
 });
+
+router.get('/',   (req, res) => {
+  Users.find({ _id: req.params.id })
+    .then((user) => {
+      res.json({ user, success: true });
+    })
+    .catch((er) => {
+      res.json({ success: false, message: er.message });
+    });
+});
+
+
+// Update user
+router.put('/:id', auth,  async (req, res) => {
+if (req.body.userId === req.params.id || req.params.isAdmin === req.body.isAdmin) {
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      req.body.password = await bcrypt.hash(req.body.password, salt); 
+    }
+    try {
+      const updateUser = await Users.findByIdAndUpdate( req.params.id, {$set: req.body}, {new: true});
+      res.status(200).json(updateUser);
+    } catch (error) {
+      res.status(500).json(error);
+
+    }
+  } else {
+    res.status(403).json("Not auth to delete this account")
+  }
+});
+
+// Delete user
+router.delete('/:id', auth, async (req, res) => {
+  if (req.body.user.id === req.params.id || req.params.isAdmin === req.body.user.isAdmin){
+    try {
+    const user = await User.findById(req.params.id);
+    try {
+  
+          await Quizzes.deleteMany({ user: user.user._id});
+          await Users.findByIdAndDelete(req.params.id);
+          res.status(200).json("User has been deleted...");
+        } catch (err) {
+          res.status(500).json(error);
+        }
+      } catch (error) {
+        res.status(404).json("User not found!");
+      }
+    } else {
+      res.status(401).json("You can delete only your account!");
+    }
+  });
+
+  // Admin get last five users
+
+router.get('/', auth, async (req, res) => {
+  const search = req.search.new;
+  if(req.user.isAdmin) {
+try {
+  const users = search 
+  ? await Users.find().sort({_id: -1}).limit(5)
+  : await Users.find();
+  res.status(200).json(users);
+} catch (error) {
+   res.status(500).json(error);
+}
+} else {
+
+    res.status(403).json("you are not admin, please log on with the correct credentials")
+
+}
+});
+router.get('/stats', auth, async (req, res) => {
+try {
+  const data = await Users.aggregate([
+    {$project: {month: { $month: '$createdAt'}}},
+    {$group: {_id: '$month', total: {$sum: 1}}},
+  ])
+ 
+  res.status(200).json(data);
+} catch (error) {
+   res.status(500).json(error);
+}
+});
+
+// Upload image for avatar
 router.post('/upload-image', auth, async(req, res) => {
   try {
       const fileUpload = req.body.data;

@@ -84,7 +84,10 @@ saveQuiz = () => {
         category: this.state.categoriesVal,
         imgUrl: this.state.imgUrl,
       
-    }
+    }   
+
+   
+   
     axios.post('/api/quizzes/create', {quiz, createdBy: localStorage.getItem('_ID')}).then(res => {
         if (res.data.succuss) {
             this.setState({
@@ -102,8 +105,9 @@ saveQuiz = () => {
     }).catch(er => {
         console.error(er);
     })
+    window.location.reload();
 }
-
+ 
 
 
     render () {
@@ -145,7 +149,6 @@ saveQuiz = () => {
                     </div>
                      
                     <span onClick={() => this.saveQuiz()} className="btn save-quiz">Save Quiz</span>
-
                     <Prompts model={this.state.addQuestion}>
                         <div className="new-question-form">
                                 <input className="input" placeholder="Question" value={this.state.questionInput} onChange={event => this.setState({questionInput: event.target.value})} />

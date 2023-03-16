@@ -28,7 +28,7 @@ export default class Auth extends React.Component {
         });
         // checking if user information is logged out once successful login
         // console.log(storage.getState());
-        this.props.history.push('/dashboard');
+        this.props.history.push('/user-profile');
       } else {
         this.setState({
           showAlert: true
