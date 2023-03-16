@@ -42,8 +42,7 @@ export default class MyQuizzes extends React.Component{
                 <div className="start-quiz btn" onClick={() => this.startQuiz(quiz._id)}>Start Quiz</div>
 
                 <div className="top-section">
-                    <div className="views"> <img src="https://www.pngkit.com/png/full/525-5251817_security-governance-privacy-eye-icon-font-awesome.png" alt="view"/> </div>
-                    <div className="likes"><img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678087-heart-512.png" alt="like" /></div>
+      
                 </div>
             </div>
         ))}

@@ -73,7 +73,19 @@ export default class StartQuiz extends React.Component {
     hideModal = () => {
         $('#modal-wrapper-quiz').fadeOut(300);
     }
+    EditQuiz = (id) => {
 
+        axios.put(`/api/quizzes/${id}`, {
+            currentUser: localStorage.getItem('_ID'),
+            answers: this.state.answers,
+            quizId: this.state.quiz._id,
+            questions: this.state.questions
+        }).then(res => {
+            if (res.data) {
+                
+            }
+        })
+    }
     finishQuiz = () => {
         axios.post("/api/quizzes/save-score", {
             currentUser: localStorage.getItem('_ID'),
@@ -85,6 +97,15 @@ export default class StartQuiz extends React.Component {
             }
         })
     }
+    startQuizzes = () => {
+        this.props.history.push({ 
+            pathname: "/start-quiz/" + this.state.id,
+            state: {
+                quiz: this.state.quiz
+            }
+        })
+    }
+
 
     render() {
         let {quiz, activeQuestionIdx} = this.state;
@@ -140,7 +161,9 @@ export default class StartQuiz extends React.Component {
                                 </div>
                                 <div className="footer">
                                     <div className="buttons-wrapper">
+                                    <button onClick={() => this.props.history.goBack()}>Go Back</button>
                                         <button onClick={this.prevQuestion}>Previous</button>
+                                        <button onClick={this.editQuiz}>Edit Quiz</button>
                                         {this.state.activeQuestionIdx + 1 < this.state.quiz.questions.length ? <button onClick={this.nextQuestion}>Next</button> : <button onClick={this.showModal}>Submit Quiz</button>}
                                     </div>
                                 </div>
