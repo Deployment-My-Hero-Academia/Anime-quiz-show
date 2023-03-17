@@ -1,37 +1,37 @@
-name: Test and Deploy App
+name: Jest -> SonarCloud
+
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled 1 for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+   
   test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-      - run: npm install
-      - run: npm ci
-      - run: npm test
-  build:
-    name: Build and Deploy
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Use Node 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: Install Railway
-        run: npm i -g @railway/cli
-      - name: Deploy Node
-        run: |
-          echo "APP_SECRET: ${APP_SECRET}}"
-          railway up
-        env:
-          App_TOKEN: ${APP_SECRET}}
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+    - run: npm ci
+    - run: npm test
+  
+  # Add deployment commands here
+  
+  
+  
