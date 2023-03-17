@@ -31,7 +31,7 @@ jobs:
         run: npm i -g @railway/cli
       - name: Deploy Node
         run: |
-          echo "APP_SECRET: ${{process.env.APP_SECRET}}"
+          echo "APP_SECRET: ${APP_SECRET}}"
           railway up
         env:
-          App_TOKEN: ${{process.env.APP_SECRET}}
+          App_TOKEN: ${APP_SECRET}}
