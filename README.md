@@ -136,10 +136,12 @@ from root cd client - install dependencies
 </details>
 
 References
-https://stackoverflow.com/questions/75205873/nodeinternal-modules-cjs-loader1056-throw-err/75636758#75636758 https://www.youtube.com/watch?v=Q_3lXJ0agwI&t=623s
-https://github.com/actions/checkout
-https://stackoverflow.com/questions/61652674/error-cannot-find-module-react-dev-utils-getpublicurlorpath
-https://www.youtube.com/watch?v=Q_3lXJ0agwI&t=623s
-https://www.youtube.com/watch?time_continue=8&v=riDzcEQbX6k&embeds_euri=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3Dnode%2Bjs%2Bquiz%2Bapp%2Bupdate%2Bquizzes%26rlz%3D1C5CHFA_enUS989US989%26biw%3D1440%26bih%3D702%26tbm%3Dvid%26sxsrf%3DAJOqlzW3&feature=emb_logo
-https://www.geeksforgeeks.org/crud-operations-and-file-upload-using-node-js-and-mongodb/
-https://www.youtube.com/watch?v=gK8wQGkVoCQ
+🕵🏻 https://stackoverflow.com/questions/75205873/nodeinternal-modules-cjs-loader1056-throw-err/75636758#75636758 
+🕵🏻 https://www.youtube.com/watch?v=Q_3lXJ0agwI&t=623s
+🕵🏻 https://github.com/actions/checkout
+🕵🏻 https://stackoverflow.com/questions/61652674/error-cannot-find-module-react-dev-utils-getpublicurlorpath
+🕵🏻 https://www.youtube.com/watch?v=Q_3lXJ0agwI&t=623s
+🕵🏻 https://www.youtube.com/watch?time_continue=8&v=riDzcEQbX6k&embeds_euri=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq%3Dnode%2Bjs%2Bquiz%2Bapp%2Bupdate%2Bquizzes%26rlz%3D1C5CHFA_enUS989US989%26biw%3D1440%26bih%3D702%26tbm%3Dvid%26sxsrf%3DAJOqlzW3&feature=emb_logo
+🕵🏻 https://www.geeksforgeeks.org/crud-operations-and-file-upload-using-node-js-and-mongodb/
+🕵🏻 https://www.youtube.com/watch?v=gK8wQGkVoCQ
+🕵🏻 https://www.youtube.com/watch?v=SjijQf5wk-4

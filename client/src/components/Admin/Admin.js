@@ -19,29 +19,41 @@ export default class Admin extends React.Component {
         }
     }
     componentDidMount() {
-    
+        this.getUser();
         axios.get('/api/quizzes/all-quizzes/').then(res => {
             this.setState({
                 quizzes: res.data
             })
           
-        })
+        })}
     
-     
-            axios.get('/api/users/').then((res) => {
+        getUser = () => {
+            let id = localStorage.getItem('_ID');
+            if (!id) {
+                this.props.history.push('/');
+                localStorage.clear();
+            }
+            axios.get('/api/users/' + id).then((res) => {
                 this.setState({user: res.data.user})
-         
-     } ) }
+            })
+        
+        }
     
-
+            
+    //         axios.get('/api/users/').then((res) => {
+    //             this.setState({user: res.data.user})
+         
+    //  } ) }
+    
+    
      handleDelete = (id) => {
    
    axios.delete(`/api/quizzes/${id}`).then(res => {
     this.setState({
-        quizzes: res.data,
+        quiz: res.data,
         data: { id }
     })
-    this.props.history.push('/admin');
+    window.location.reload(this.props.history.push('/admin'))
 })
      }
          
@@ -68,19 +80,11 @@ export default class Admin extends React.Component {
              
         }).catch(er => {
             console.error(er);
-        })
-        this.props.history.push('/admin');
+        }) 
+        window.location.reload(this.props.history.push('/admin'));
+        // this.props.history.push('/admin');
     }
-        getUser = () => {
-        let id = localStorage.getItem('_ID');
-        if (!id) {
-            this.props.history.push('/');
-            localStorage.clear();
-        }
-        axios.get('/api/users/' + id).then((res) => {
-            this.setState({user: res.data.user})
-        })
-    }
+      
     
     render() {
         return (
@@ -117,21 +121,20 @@ export default class Admin extends React.Component {
      <div>
    
      </div>
-     <div className='body'>
-         
-    <center><p>Users</p>
-     
-                    
-     {this.state.user &&
- 
-         <h1> {this.state.user.email}
-    </h1> 
-        
-              
+     <div className="body">
+                    {this.state.user &&
+                       
+       
+                       <div className="quiz-card card">
+                       <h1>Users</h1>
+                       <div className="quiz-name">{this.state.user.firstName + " " + this.state.user.lastName}</div>
+                   <div className="quiz-name">{this.state.user.email}</div>
+                    {/* <div className="delete-quiz btn" onClick={(event) => this.handleDelete(this.state.user._id, event)} style={{backgroundColor: "red"}}>Delete user</div> */}
+           
 
-
-     }</center>
- 
+                           </div>              
+                       
+                    }
 </div>
 </div>
 </div>

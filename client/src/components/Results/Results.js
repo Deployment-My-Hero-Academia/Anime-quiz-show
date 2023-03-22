@@ -79,7 +79,7 @@ export default class Results extends React.Component {
                         </div>
 
                         <div className="img">
-                            <img src={this.state.quiz.imgUrl ? this.state.quiz.imgUrl : 'https://images.unsplash.com/photo-1518770660439-4636190af475?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGVjaG5vbG9neXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80'} alt="testing" />
+                            <img src={this.state.quiz.imgUrl ? this.state.quiz.imgUrl : 'https://pbs.twimg.com/media/BKrGzP2CAAAnU8T?format=jpg&name=360x360'} alt="testing" />
                         </div>
                     </div>
                 }

@@ -31,7 +31,7 @@ router.post('/create', auth, (req, res) => {
     });
 
     router.put("/:id",  async (req, res) => {
-            // if (req.body.isAdmin || req.body.userId)  {
+            // if (req.body.isAdmin === true || req.body.userId)  {
             //     try {
 
             const updateQuiz = await Quizzes.findByIdAndUpdate (

@@ -12,7 +12,7 @@ export default class updateQuiz extends React.Component {
             quiz: {},
             authorized: false,
             answers: [],
-            activeQuestionIdx: 0,
+            activeQuestionIdx: 0
           
         }
     }
@@ -110,7 +110,7 @@ export default class updateQuiz extends React.Component {
                                 <div className="body">
                                     <div className="left">
                                     {this.state.quiz.quizName}
-                                        <div className="question-name">{quiz.questions[activeQuestionIdx].questionName}</div>
+                                        <div className="question-name">{this.state.quiz.questions.questionName}</div>
                                         <div className="question-bubble-wrapper">
                                             {this.state.quiz.questions.map((ans, idx) => (
                                                 <span onClick={() => this.setState({ activeQuestionIdx: idx })} key={idx} className={this.state.activeQuestionIdx === idx ? 'question-bubble selected-bubble' : this.state.answers[idx] === 0 ? "question-bubble" : 'question-bubble bubble-correct'}>
