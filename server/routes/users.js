@@ -102,7 +102,7 @@ router.get('/:id', auth,  (req, res) => {
 });
 
 router.get('/',   (req, res) => {
-  Users.find({ _id: req.params.id })
+  Users.findAll({ _id: req.params.id })
     .then((user) => {
       res.json({ user, success: true });
     })
