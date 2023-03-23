@@ -39,6 +39,7 @@ export default class Sidebar extends React.Component {
                         <NavLink to="/my-quizzes"><div className="link">My Quizzes</div></NavLink>
                         <NavLink to="/create-new-quiz"><div className="link">Create Quiz</div></NavLink>
                         <NavLink to="/community-quizzes"><div className="link">Community Quizzes</div></NavLink>
+                        <NavLink to="/"><div className="link">Sign Out</div></NavLink>
                         {/* <NavLink to="/update"><div className="link">Update</div></NavLink> */}
                      
                     </div>

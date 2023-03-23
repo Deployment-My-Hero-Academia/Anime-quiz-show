@@ -1,9 +1,11 @@
 const express = require("express");
 const Users = require("../models/Users");
+const Quizzes = require("../routes/quizzes");
+const Quiz = require("../models/Quiz");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require('../config/cloudinary');
-const auth = require("../middleware/auth");
+const {auth, isAdmin} = require("../middleware/auth");
 const {
   loginValidator,
   registerValidator,
@@ -53,6 +55,10 @@ router.post("/login", (req, res) => {
     });
   }
 });
+router.get("/signout", (req, res) => {
+   req.logout();
+  res.json({success: true, msg: 'Sign out successfully.'});
+});
 
 router.post("/register", (req, res) => {
   const { errors, isValid } = registerValidator(req.body);
@@ -60,10 +66,11 @@ router.post("/register", (req, res) => {
     res.json({ success: false, errors });
   } else {
     // destruction
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, isAdmin } = req.body;
     const registerUser = new Users({
       firstName,
       lastName,
+      isAdmin,
       email,
       password,
       createdAt: new Date(),
@@ -101,19 +108,27 @@ router.get('/:id', auth,  (req, res) => {
     });
 });
 
-router.get('/',   (req, res) => {
-  Users.findAll({ _id: req.params.id })
-    .then((user) => {
-      res.json({ user, success: true });
-    })
-    .catch((er) => {
-      res.json({ success: false, message: er.message });
-    });
+router.get("/", auth, isAdmin, async (req, res, next) => {
+  try {
+    const users = await Users.find();
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
 });
 
+// router.get('/isAdmin', function (req, res) {
+//   Users.findById(req.user, function (err, user) {
+//     if (user.isAdmin == true) {
+//         res.send(user);
+//     } else {
+//         return res.status(400).send({ message: 'User is not Admin' });
+//     }
+//   });
+// });
 
 // Update user
-router.put('/:id', auth,  async (req, res) => {
+router.put('/:id',   async (req, res) => {
 if (req.body.userId === req.params.id || req.params.isAdmin === req.body.isAdmin) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
@@ -132,57 +147,72 @@ if (req.body.userId === req.params.id || req.params.isAdmin === req.body.isAdmin
 });
 
 // Delete user
-router.delete('/:id', auth, async (req, res) => {
-  if (req.body.user.id === req.params.id || req.params.isAdmin === req.body.user.isAdmin){
-    try {
-    const user = await User.findById(req.params.id);
-    try {
+// router.delete('/:id',  async (req, res) => {
+//   if (req.body.userId === req.params.id|| req.params.isAdmin === req.body.isAdmin){
+//     try {
+//     const user = await Users.findById(req.params.id);
+//     try {
   
-          await Quizzes.deleteMany({ user: user.user._id});
-          await Users.findByIdAndDelete(req.params.id);
-          res.status(200).json("User has been deleted...");
-        } catch (err) {
-          res.status(500).json(error);
-        }
-      } catch (error) {
-        res.status(404).json("User not found!");
-      }
-    } else {
-      res.status(401).json("You can delete only your account!");
-    }
-  });
+//           await Quizzes.deleteMany({ user: user});
+//           await q.remove();
+//           await Users.findByIdAndDelete(req.params.id);
+//           res.status(200).json("User has been deleted...");
+//         } catch (error) {
+//           res.status(500).json(error);
+//         }
+//       } catch (error) {
+//         res.status(404).json("User not found!");
+//       }
+//     } else {
+//       res.status(401).json("You can delete only your account!");
+//     }
+//   });
+
+  router.delete("/:id", async (req, res, next) => {
+    try {
+      const quizzes = await Users.findOneAndDelete(req.params.id);
+      const deleteUsers = await Quiz.deleteMany(quizzes);
+      res.status(200).send({message: "User successfully deleted", deleteUsers});
+      console.log("user")
+    } catch (error) {
+      res.status(404).send("User not found")
+      next(error);
+    } 
+  })
+
+
 
   // Admin get last five users
 
-router.get('/', auth, async (req, res) => {
-  const search = req.search.new;
-  if(req.user.isAdmin) {
-try {
-  const users = search 
-  ? await Users.find().sort({_id: -1}).limit(5)
-  : await Users.find();
-  res.status(200).json(users);
-} catch (error) {
-   res.status(500).json(error);
-}
-} else {
+// router.get('/', auth, async (req, res) => {
+//   const search = req.search.new;
+//   if(req.user.isAdmin) {
+// try {
+//   const users = search 
+//   ? await Users.find().sort({_id: -1}).limit(5)
+//   : await Users.find();
+//   res.status(200).json(users);
+// } catch (error) {
+//    res.status(500).json(error);
+// }
+// } else {
 
-    res.status(403).json("you are not admin, please log on with the correct credentials")
+//     res.status(403).json("you are not admin, please log on with the correct credentials")
 
-}
-});
-router.get('/stats', auth, async (req, res) => {
-try {
-  const data = await Users.aggregate([
-    {$project: {month: { $month: '$createdAt'}}},
-    {$group: {_id: '$month', total: {$sum: 1}}},
-  ])
+// // }
+// });
+// router.get('/stats', auth, async (req, res) => {
+// try {
+//   const data = await Users.aggregate([
+//     {$project: {month: { $month: '$createdAt'}}},
+//     {$group: {_id: '$month', total: {$sum: 1}}},
+//   ])
  
-  res.status(200).json(data);
-} catch (error) {
-   res.status(500).json(error);
-}
-});
+//   res.status(200).json(data);
+// } catch (error) {
+//    res.status(500).json(error);
+// }
+// });
 
 // Upload image for avatar
 router.post('/upload-image', auth, async(req, res) => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const Quizzes = require('../models/Quiz');
-const auth = require('../middleware/auth');
+const {auth, isAdmin} = require('../middleware/auth');
 const Users = require('../models/Users');
 const Scores = require('../models/Scores');
 
@@ -46,26 +46,31 @@ router.post('/create', auth, (req, res) => {
     //     }
     // });
             })
+          
 
-
-    router.delete("/:id",  async (req, res) => {
-        // if (req.body.isAdmin || req.body.userId)  {
+    router.delete("/:id",  isAdmin, async (req, res) => {
+        // if (req.user)  {
         //     try {
 
         await Quizzes.findByIdAndDelete (
             req.params.id)
 
             res.status(200).json("The quiz has been deleted");
-        // } catch (error) {
-//             res.status(500).json(error);
-//         }
-//     } else {
-//         res.status(403).json("You are not allowed to delete this quiz");
-//     }
-// });
+        // } 
+        //     res.status(500).json(error);
+        // }
+    // } else {
+    //     res.status(403).json("You are not allowed to delete this quiz");
+    // }
+});
       
-        })
+    
+router.get('/', async (req, res)=> {
+    const quizzes = await Quizzes.find({ users: req.users.id })
+
+    res.status(200).json(quizzes)
   
+});
 
 router.get('/my-quizzes/:id', (req, res)=> {
     Quizzes.find({createdBy: req.params.id}).then(result => {
