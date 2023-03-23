@@ -35,8 +35,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: #00000080;
-    color: white;
+   
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -69,7 +68,7 @@
     width: 50%;
     margin-top: 20px;
     margin: 20px auto 0;
-    color: white;
+ 
 }
 
 .my-quizzes-wrapper .quizzes-wrapper .quiz-card .questions {

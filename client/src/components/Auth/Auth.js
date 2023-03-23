@@ -59,7 +59,15 @@ export default class Auth extends React.Component {
       console.log(er);
     });
     
+    
   }
+  logout() {
+    localStorage.removeItem("token");
+  }
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));;
+  }
+
 
   // Function and ternary operator 
   changeForm = () => {

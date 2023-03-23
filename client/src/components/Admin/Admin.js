@@ -13,45 +13,38 @@ export default class Admin extends React.Component {
         this.state = {
             quiz: {},
             user: null,
-            quizzes: []
+            quizzes: [],
+            users:[]
+            // isAdmin: false
 
 
         }
     }
     componentDidMount() {
-        this.getUser();
+     
         axios.get('/api/quizzes/all-quizzes/').then(res => {
             this.setState({
                 quizzes: res.data
             })
           
-        })}
-    
-        getUser = () => {
-            let id = localStorage.getItem('_ID');
-            if (!id) {
-                this.props.history.push('/');
-                localStorage.clear();
-            }
-            axios.get('/api/users/' + id).then((res) => {
-                this.setState({user: res.data.user})
-            })
         
-        }
     
-            
-    //         axios.get('/api/users/').then((res) => {
-    //             this.setState({user: res.data.user})
-         
-    //  } ) }
+        axios.get('/api/users/').then(res => {
+            this.setState({
+                users: res.data
+            })
+        })})
     
+
+    }
     
      handleDelete = (id) => {
    
    axios.delete(`/api/quizzes/${id}`).then(res => {
     this.setState({
         quiz: res.data,
-        data: { id }
+        data: { id },
+        // isAdmin: true
     })
     window.location.reload(this.props.history.push('/admin'))
 })
@@ -85,7 +78,7 @@ export default class Admin extends React.Component {
         // this.props.history.push('/admin');
     }
       
-    
+
     render() {
         return (
             <div className='community-quizzes-wrapper'>
@@ -121,24 +114,27 @@ export default class Admin extends React.Component {
      <div>
    
      </div>
-     <div className="body">
-                    {this.state.user &&
-                       
-       
-                       <div className="quiz-card card">
-                       <h1>Users</h1>
-                       <div className="quiz-name">{this.state.user.firstName + " " + this.state.user.lastName}</div>
-                   <div className="quiz-name">{this.state.user.email}</div>
-                    {/* <div className="delete-quiz btn" onClick={(event) => this.handleDelete(this.state.user._id, event)} style={{backgroundColor: "red"}}>Delete user</div> */}
-           
+ 
+                               <div className='quizzes-wrapper'>
+                {this.state.users.map((user, idx) => (
+                <div key={idx} className="quiz-card card">
+                    <h1>User Information</h1>
+                    <div className="quiz-name">{user._id}</div>
+                <div className="quiz-name">{user.firstName + ' ' + user.lastName}</div>
+                <div className="quiz-name">{user.email}</div>
+                <div className="quiz-name">{user.createdAt}</div>
 
-                           </div>              
-                       
-                    }
+
+                <div className="top-section">
+
+                </div>
+            </div>
+        ))}
+        </div>
 </div>
 </div>
 </div>
-</div>
+
 
 
         )}}
