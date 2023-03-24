@@ -11,20 +11,25 @@ const auth = (req, res, next) => {
         return res.status(401).json({ "message": "Not authorized" });
     }
 }
+
+const isUser = (req, res, next) => {
+    auth(req, res, () => {
+      if (req.user.id === req.params.id || req.user.isAdmin) {
+        next();
+      } else {
+        res.status(403).json({ "message": "Not authorized"});
+      }
+    });
+  };
 //isAdmin
 const isAdmin = async (req, res, next) => {
-    const token = req.headers['authorization'].split(' ')[2];
-    if (!token) return res.status(401).send("No User");
-    try {
-        const decoded = verify(token, process.env.APP_SECRET);
-        req.userData = decoded;
-        let user = await Users.findOne({ isAdmin });
-        if (req.user && user.isAdmin === true) {
-            return next();
-        }
-    } catch (err) {
-        return res.status(401).send({ msg: "Admin token is not valid" });
+   auth(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json({ "message": "Not authorized" });
     }
+  });
 };
 
-module.exports = { auth, isAdmin}
+module.exports = { auth, isUser, isAdmin}
