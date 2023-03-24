@@ -1,6 +1,6 @@
 const express = require('express');
 const Quizzes = require('../models/Quiz');
-const {auth, isAdmin} = require('../middleware/auth');
+const {auth, isUser,isAdmin} = require('../middleware/auth');
 const Users = require('../models/Users');
 const Scores = require('../models/Scores');
 
@@ -85,6 +85,11 @@ router.get('/all-quizzes', auth, (req, res) => {
             res.status(200).json(result);
         })
     })
+    // router.get('/admin-all-quizzes', isAdmin, (req, res) => {
+    //     Quizzes.find().then(result => {
+    //             res.status(200).json(result);
+    //         })
+    //     })
     router.get('/get-quiz/:id', auth, (req, res) => {
         Quizzes.findOne({ _id: req.params.id }).then(quiz => {
             res.status(200).json({quiz});

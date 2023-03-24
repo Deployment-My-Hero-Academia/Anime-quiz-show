@@ -7,6 +7,11 @@ const QuizSchema = new Schema({
         type: Boolean,
         default: false
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true

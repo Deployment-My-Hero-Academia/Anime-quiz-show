@@ -1,11 +1,10 @@
 const express = require("express");
 const Users = require("../models/Users");
-const Quizzes = require("../routes/quizzes");
 const Quiz = require("../models/Quiz");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { cloudinary } = require('../config/cloudinary');
-const {auth, isAdmin} = require("../middleware/auth");
+const {auth, isUser, isAdmin} = require("../middleware/auth");
 const {
   loginValidator,
   registerValidator,
@@ -108,7 +107,7 @@ router.get('/:id', auth,  (req, res) => {
     });
 });
 
-router.get("/", auth, isAdmin, async (req, res, next) => {
+router.get("/", isAdmin, async (req, res, next) => {
   try {
     const users = await Users.find();
     res.send(users);
@@ -128,7 +127,7 @@ router.get("/", auth, isAdmin, async (req, res, next) => {
 // });
 
 // Update user
-router.put('/:id',   async (req, res) => {
+router.put('/:id', isUser,  async (req, res) => {
 if (req.body.userId === req.params.id || req.params.isAdmin === req.body.isAdmin) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
@@ -146,41 +145,26 @@ if (req.body.userId === req.params.id || req.params.isAdmin === req.body.isAdmin
   }
 });
 
-// Delete user
-// router.delete('/:id',  async (req, res) => {
-//   if (req.body.userId === req.params.id|| req.params.isAdmin === req.body.isAdmin){
-//     try {
-//     const user = await Users.findById(req.params.id);
-//     try {
-  
-//           await Quizzes.deleteMany({ user: user});
-//           await q.remove();
-//           await Users.findByIdAndDelete(req.params.id);
-//           res.status(200).json("User has been deleted...");
-//         } catch (error) {
-//           res.status(500).json(error);
-//         }
-//       } catch (error) {
-//         res.status(404).json("User not found!");
-//       }
-//     } else {
-//       res.status(401).json("You can delete only your account!");
-//     }
-//   });
 
-  router.delete("/:id", async (req, res, next) => {
+
+  router.delete("/:id", isAdmin, async (req, res, next) => {
+   if (req.body.userId === req.params.id) {
     try {
-      const quizzes = await Users.findOneAndDelete(req.params.id);
-      const deleteUsers = await Quiz.deleteMany(quizzes);
-      res.status(200).send({message: "User successfully deleted", deleteUsers});
-      console.log("user")
-    } catch (error) {
-      res.status(404).send("User not found")
-      next(error);
-    } 
-  })
-
-
+      const user = await Users.findById(req.params.id);
+      try {
+        await Quiz.deleteMany({ email: user.email});
+        await Users.findByIdAndDelete(req.params.id);
+        res.status(200).json("User has been deleted...");
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } catch (err) {
+      res.status(404).json("User not found!");
+    }
+  } else {
+    res.status(401).json("You can delete only your account!");
+  }
+});
 
   // Admin get last five users
 

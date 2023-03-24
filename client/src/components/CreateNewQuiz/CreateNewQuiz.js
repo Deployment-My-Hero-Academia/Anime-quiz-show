@@ -79,6 +79,7 @@ export default class CreateNewQuiz extends React.Component {
 saveQuiz = () => {
     let quiz = {
         signedIn: this.state.signedIn,
+        email: this.state.email,
         name: this.state.name,
         questions: this.state.questions,
         category: this.state.categoriesVal,
@@ -95,6 +96,7 @@ saveQuiz = () => {
                 questions: [],
                 answers: [],
                 categoriesVal: 'Anime',
+                email: [],
                 showAlert: true
 
                 
@@ -123,6 +125,9 @@ saveQuiz = () => {
             <div className="main">
                 <div className="header">Create Quiz</div>
                 <div className="form card">
+                <input className="input" onChange={event => this.setState({email: event.target.value})} value={this.state.email} placeholder="user email" />
+                    <br></br>
+                    
                     <input className="input" onChange={event => this.setState({name: event.target.value})} value={this.state.name} placeholder="Quiz Name" />
                     <br></br>
                     <input className="input" onChange={event => this.setState({imgUrl: event.target.value})} value={this.state.imgUrl} placeholder="Img url" />
